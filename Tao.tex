@@ -1,4 +1,4 @@
-\documentclass[hidelinks]{memoir}
+\documentclass[book,b5paper,hidelinks,final]{memoir}
 
 \usepackage{ccicons}
 
@@ -16,7 +16,7 @@
 \usepackage{tikz}
 \usepackage{pifont}
 
-
+\usepackage[all]{nowidow}
 %\usepackage{pst-text}
 
 %%%% Additional font macros
@@ -148,18 +148,19 @@
 
 \begin{titlingpage}
 
-\begingroup% Robert Frost, T&H p 149
-%\FSfont{5bo}%  Bembo/Bergamo
-\drop = 0.2\txtheight
-\centering
-\vfill
-{\Huge El Tao Te King de}\\[\baselineskip]
-{\Huge Lao Tse}\\[\baselineskip]
-{\large Traducido al Español desde la Traducción al Inglés de Gia-fu Feng y Jane English}\\[0.5\drop]
-
-{\Large The Nectar Project}\par
-{\large\scshape 2019}\par
-\vfill\null
+\begingroup
+	%\drop = 0.2\txtheight
+	\centering
+	\vfill
+	{\Huge El Tao Te King de}\\[\baselineskip]
+	{\Huge Lao Tse}\\[\baselineskip]
+	{\large Traducido al Español desde la Traducción al Inglés de Gia-fu Feng y Jane English}\\[0.5\drop]
+	
+	\vfill
+	
+	{\Large The Nectar Project}\par
+	{\large\scshape 2019}\par
+	\vfill\null
 \endgroup
 
 \end{titlingpage}
@@ -5037,6 +5038,8 @@ resumen para nosotros, para ver si los milagros suceden.
 	
 	¿Dónde podría yo encontrar a un hombre que haya olvidado las palabras?
 	¡Es con él con quien me gustaría hablar!
+	
+	\chapter*{}
 	
 	Después de leer los escritos, hay una nueva vida a vivir. En la época de
 	Lao Tse y Chuang Tse, ni leer ni practicar eran necesarios, porque el
