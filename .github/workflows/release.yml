@@ -37,9 +37,8 @@ jobs:
         # Install extra packages by apt-get
         # extra_system_packages: # optional
     - name: Create Release
-      id: create_release
-      - uses: ncipollo/release-action@v1
-        with:
-          artifacts: "Tao.pdf"
-          bodyFile: "README.md"
-          token: ${{ secrets.GITHUB_TOKEN }}
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "Tao.pdf"
+        bodyFile: "README.md"
+        token: ${{ secrets.GITHUB_TOKEN }}
