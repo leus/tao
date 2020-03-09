@@ -8,26 +8,46 @@ name: Upload Release Asset
 
 jobs:
   build:
-    name: Upload Release Asset
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    name: Build pdf
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./Tao.pdf
-          asset_name: Tao.pdf
-          asset_content_type: application/pdf
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    - name: LaTeX compilation
+      uses: dante-ev/latex-action@v0.2.0
+      with:
+        # The root LaTeX file to be compiled
+        root_file: Tao.tex
+        # The working directory for the latex compiler to be invoked
+        # working_directory: # optional
+        # LaTeX engine to be used
+        compiler: latexmk 
+        # optional, default is latexmk
+        # Extra arguments to be passed to the latex compiler
+        # args: # optional, default is -pdf -latexoption=-file-line-error -latexoption=-interaction=nonstopmode
+        # Install extra packages by apt-get
+        # extra_system_packages: # optional
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./Tao.pdf
+        asset_name: Tao.pdf
+        asset_content_type: application/pdf
